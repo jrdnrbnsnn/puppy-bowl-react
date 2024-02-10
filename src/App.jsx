@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { useState } from "react";
+import NewPlayerForm from "./assets/components/NewPlayerForm";
+import AllPlayers from "./assets/components/AllPlayers";
+import SinglePlayer from "./assets/components/SinglePlayer";
+import HandleDeletePlayer from "./assets/components/DeletePlayer";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [selectedPlayerId, setSelectedPlayerId] = useState(null);
+  const [showSinglePlayer, setShowSinglePlayer] = useState(false); // State to control the display
+
+  // Function to handle player selection
+  const handleSelectPlayer = (playerId) => {
+    setSelectedPlayerId(playerId);
+    setShowSinglePlayer(true); // Show single player view when a player is selected
+  };
+
+  // Function to return to the list view
+  const handleBackToList = () => {
+    setShowSinglePlayer(false); // To return to the list view
+  };
+
+  // Function to handle state update after a player is deleted
+  const handlePlayerDeleted = () => {
+    setSelectedPlayerId(null); // Reset selected player
+    setShowSinglePlayer(false); // Return to the list view, assuming the player list is automatically refreshed
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <NewPlayerForm />
+      {showSinglePlayer ? (
+        <>
+          <SinglePlayer selectedPlayerId={selectedPlayerId} />
+          {/* Render the HandleDeletePlayer component with the necessary props */}
+          <HandleDeletePlayer
+            selectedPlayerId={selectedPlayerId}
+            onPlayerDeleted={handlePlayerDeleted}
+          />
+          <button onClick={handleBackToList}>Back to List</button>
+        </>
+      ) : (
+        <AllPlayers onSelectPlayer={handleSelectPlayer} />
+      )}
     </>
-  )
+  );
 }
-
-export default App

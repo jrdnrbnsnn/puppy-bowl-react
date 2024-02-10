@@ -4,7 +4,16 @@
   padding: 2rem;
   text-align: center;
 }
+.player-container {
+  display: flex;
+  flex-direction: column;
+}
 
+.player-container img {
+  width: 50%;
+  height: 50%;
+  border-radius: 5px;
+}
 .logo {
   height: 6em;
   padding: 1.5em;

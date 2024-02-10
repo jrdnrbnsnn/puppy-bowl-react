@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "puppy-bowl-reacdt",
+=======
+  "name": "react-puppy-bowl",
+>>>>>>> 5cec228 (need to work on)
   "private": true,
   "version": "0.0.0",
   "type": "module",
